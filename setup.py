@@ -5,7 +5,7 @@ setup(
     version="1.0.0",
     packages=find_packages(),
     install_requires=[
-        'python-telegram==1.18.0'        
+        'python-telegram==0.18.0'        
     ],
     author="Ilia Abolhasani",
     author_email="abolhasani.eliya@gmail.com",
