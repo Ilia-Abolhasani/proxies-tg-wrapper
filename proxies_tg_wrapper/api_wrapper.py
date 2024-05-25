@@ -5,6 +5,7 @@ class DotDict(dict):
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
+
 class Telegram_API:
     def __init__(
             self,
@@ -208,4 +209,5 @@ class Telegram_API:
         self.tg.idle()
 
     def stop(self):
+        # tg stoped
         self.tg.stop()
