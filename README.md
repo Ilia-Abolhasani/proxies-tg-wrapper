@@ -7,7 +7,6 @@ proxies-tg-wrapper is a Python package designed to facilitate interaction with t
 pip install proxies-tg-wrapper
 ```
 
-
 ## Contributing
 Contributions are welcome! If you find a bug or have a suggestion, please open an issue.
 
