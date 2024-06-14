@@ -41,7 +41,7 @@ class Telegram_API:
                 files_directory=tdlib_directory,
                 library_path=library_path,
             )
-        self.tg.login()
+        self.tg.login(blocking=True)
 
     def __del__(self):
         self.tg.stop()
