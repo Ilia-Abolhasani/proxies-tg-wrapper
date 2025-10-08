@@ -199,26 +199,27 @@ class Telegram_API:
         return recived_messages, last_message_id
 
     def view_messages(self, chat_id, message_ids):
-    """
-    Mark messages as read in a chat.
-    
-    Args:
-        chat_id: The chat ID where the messages are
-        message_ids: List of message IDs to mark as read
-    """
-    try:
-        # TDLib method to view messages (mark as read)
-        result = self.td_send({
-            '@type': 'viewMessages',
-            'chat_id': chat_id,
-            'message_ids': message_ids,
-            'force_read': True  # Mark as read even if current user is not a member
-        })
-        return result
-    except Exception as e:
-        print(f"Error marking messages as read: {e}")
-        return None
+        """
+        Mark messages as read in a chat.
 
+        Args:
+            chat_id: The chat ID where the messages are
+            message_ids: List of message IDs to mark as read
+        """
+        try:
+            # TDLib method to view messages (mark as read)
+            result = self.td_send(
+                {
+                    "@type": "viewMessages",
+                    "chat_id": chat_id,
+                    "message_ids": message_ids,
+                    "force_read": True,  # Mark as read even if current user is not a member
+                }
+            )
+            return result
+        except Exception as e:
+            print(f"Error marking messages as read: {e}")
+            return None
 
     def idle(self):
         self.tg.idle()
