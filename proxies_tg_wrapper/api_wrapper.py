@@ -198,6 +198,20 @@ class Telegram_API:
             last_message_id = min_message_id
         return recived_messages, last_message_id
 
+    def mark_chat_read(self, chat_id, message_id):
+        """
+        Mark all messages up to message_id in the given chat as read.
+        """
+        result = self._call(
+            "readChatHistory",
+            {
+                "chat_id": chat_id,
+                "message_id": message_id,
+                "force_read": True,  # ensures it's actually marked as read
+            },
+        )
+        return result
+
     def idle(self):
         self.tg.idle()
 
