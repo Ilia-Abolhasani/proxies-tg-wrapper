@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="proxies-tg-wrapper",
-    version="1.0.7",
+    version="1.0.8",
     packages=find_packages(),
     install_requires=["python-telegram==0.18.0"],
     author="Ilia Abolhasani",
