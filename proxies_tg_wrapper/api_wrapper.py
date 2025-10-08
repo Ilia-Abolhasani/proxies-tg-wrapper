@@ -207,14 +207,13 @@ class Telegram_API:
             message_ids: List of message IDs to mark as read
         """
         try:
-            # TDLib method to view messages (mark as read)
-            result = self.td_send(
+            result = self._call(
+                "viewMessages",
                 {
-                    "@type": "viewMessages",
                     "chat_id": chat_id,
                     "message_ids": message_ids,
                     "force_read": True,  # Mark as read even if current user is not a member
-                }
+                },
             )
             return result
         except Exception as e:
