@@ -19,6 +19,7 @@ class Telegram_API:
         proxy_server=None,
         proxy_port=None,
         proxy_secret=None,
+        skip_login=False,
     ):
         if proxy_server:
             self.tg = client.Telegram(
@@ -41,7 +42,35 @@ class Telegram_API:
                 files_directory=tdlib_directory,
                 library_path=library_path,
             )
-        self.tg.login(blocking=True)
+        if skip_login:
+            self._init_tdlib_only()
+        else:
+            self.tg.login(blocking=True)
+
+    def _init_tdlib_only(self):
+        """Initialize TDLib (set params + encryption key) without full login."""
+        from telegram.client import AuthorizationState
+
+        stop_states = (
+            AuthorizationState.WAIT_PHONE_NUMBER,
+            AuthorizationState.WAIT_CODE,
+            AuthorizationState.WAIT_PASSWORD,
+            AuthorizationState.WAIT_REGISTRATION,
+            AuthorizationState.READY,
+        )
+
+        actions = {
+            AuthorizationState.NONE: self.tg.get_authorization_state,
+            AuthorizationState.WAIT_TDLIB_PARAMETERS: self.tg._set_initial_params,
+            AuthorizationState.WAIT_ENCRYPTION_KEY: self.tg._send_encryption_key,
+        }
+
+        while self.tg.authorization_state not in stop_states:
+            action = actions.get(self.tg.authorization_state)
+            if action is None:
+                break
+            result = action()
+            self.tg.authorization_state = self.tg._wait_authorization_result(result)
 
     def __del__(self):
         self.tg.stop()
