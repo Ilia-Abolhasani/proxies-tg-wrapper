@@ -75,9 +75,9 @@ class Telegram_API:
     def __del__(self):
         self.tg.stop()
 
-    def _call(self, method_name, params):
+    def _call(self, method_name, params, timeout=None):
         result = self.tg.call_method(method_name=method_name, params=params)
-        result.wait()
+        result.wait(timeout=timeout)
         return result
 
     def _dot(self, dict):
@@ -157,8 +157,8 @@ class Telegram_API:
     def remove_proxy(self, proxy_id):
         return self._call("removeProxy", {"proxy_id": proxy_id})
 
-    def ping_proxy(self, proxy_id):
-        return self._call("pingProxy", {"proxy_id": proxy_id})
+    def ping_proxy(self, proxy_id, timeout=None):
+        return self._call("pingProxy", {"proxy_id": proxy_id}, timeout=timeout)
 
     def get_proxies(self):
         result = self._call("getProxies", {})
